@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,12 +15,12 @@
         .container {
             display: flex;
             justify-content: space-between;
-            max-width: 750px;
+            max-width: 800px;
             margin: 50px auto;
         }
 
         .text-column {
-            flex-basis: 100%;
+            flex-basis: 48%;
         }
 
         .calculator-column {
@@ -38,7 +39,7 @@
         }
 
         input[type="number"] {
-            width: 95%;
+            width: 100%;
             padding: 8px;
             border: 1px solid white;
             border-radius: 5px;
@@ -55,6 +56,11 @@
             background-color: black;
             color: white;
             font-weight: bold;
+        }
+
+        #emoji {
+            margin-top: 10px;
+            font-size: 24px;
         }
     </style>
 </head>
@@ -86,6 +92,7 @@
                     <label for="result">Result:</label>
                     <span id="result">-</span>
                 </div>
+                <div id="emoji"></div>
             </div>
         </div>
     </div>
@@ -94,6 +101,7 @@
             const correctionsInput = document.getElementById("corrections");
             const checkedRowsInput = document.getElementById("checkedRows");
             const resultSpan = document.getElementById("result");
+            const emojiDiv = document.getElementById("emoji");
 
             correctionsInput.addEventListener("input", calculateResult);
             checkedRowsInput.addEventListener("input", calculateResult);
@@ -108,9 +116,19 @@
 
                     // Apply red color directly based on the condition
                     resultSpan.style.color = parseFloat(result) >= 5 ? "red" : "white";
+
+                    // Update emoji based on percentage
+                    if (parseFloat(result) >= 10) {
+                        emojiDiv.textContent = "😭";
+                    } else if (parseFloat(result) >= 5) {
+                        emojiDiv.textContent = "😊";
+                    } else {
+                        emojiDiv.textContent = "😔";
+                    }
                 } else {
                     resultSpan.textContent = "-";
                     resultSpan.style.color = "white";
+                    emojiDiv.textContent = "";
                 }
             }
         });
